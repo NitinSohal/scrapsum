@@ -16,7 +16,16 @@ app.post('/summarize', async (req, res) => {
   }
 
   const prompt = regenerate
-    ? `You didn't understand this part. Explain it in much more detail with multiple real-world examples, step-by-step explanations, and analogies. Make it crystal clear for someone who has no background knowledge. Use simple language and break down complex concepts:\n\n${text}`
+    ? `You didn't understand this part. Explain it in much more detail with multiple real-world examples, step-by-step explanations, and analogies. Make it crystal clear for someone who has no background knowledge. Use simple language and break down complex concepts.
+
+IMPORTANT: Keep your response COMPLETE and well-structured. Use markdown formatting:
+- Use ### for main section headings
+- Use **bold** for subsection titles
+- Keep paragraphs short and readable
+- Include concrete examples
+- Make sure all sentences are complete
+
+Text to explain:\n\n${text}`
     : `Summarize the following text in simple, easy-to-understand language. Structure your response as:
 
 **Summary:** [Main topic/concept being discussed]
@@ -41,7 +50,8 @@ Text to summarize:\n\n${text}`;
       },
       body: JSON.stringify({
         model: 'gpt-4o-mini',
-        max_tokens: regenerate ? 800 : 500,
+        max_tokens: regenerate ? 1500 : 500,
+        temperature: 0.7,
         messages: [{
           role: 'user',
           content: prompt
