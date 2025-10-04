@@ -27,7 +27,7 @@ app.post('/summarize', async (req, res) => {
         max_tokens: 500,
         messages: [{
           role: 'user',
-          content: `Summarize the following text in layman terms with examples where helpful. Keep it concise:\n\n${text}`
+          content: `Summarize the following text in layman terms with examples where helpful. Format your response with "**Summary:**" as a heading followed by the summary in a new paragraph. Keep it concise:\n\n${text}`
         }]
       })
     });
